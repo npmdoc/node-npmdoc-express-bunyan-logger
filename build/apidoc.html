@@ -1,0 +1,234 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/villadora/express-bunyan-logger#readme"
+
+    >express-bunyan-logger (v1.3.1)</a>
+</h1>
+<h4>a bunyan logger middleware for express</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.express-bunyan-logger">module express-bunyan-logger</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.express-bunyan-logger.errorLogger">
+            function <span class="apidocSignatureSpan">express-bunyan-logger.</span>errorLogger
+            <span class="apidocSignatureSpan">(opts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.express-bunyan-logger" id="apidoc.module.express-bunyan-logger">module express-bunyan-logger</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.express-bunyan-logger.errorLogger" id="apidoc.element.express-bunyan-logger.errorLogger">
+        function <span class="apidocSignatureSpan">express-bunyan-logger.</span>errorLogger
+        <span class="apidocSignatureSpan">(opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">errorLogger = function (opts) {
+    var logger, opts = opts || {}, format,
+        immediate = false,
+        parseUA = true,
+        excludes,
+        obfuscate,
+        obfuscatePlaceholder,
+        genReqId = defaultGenReqId,
+        levelFn = defaultLevelFn,
+        includesFn;
+
+    if (opts.logger) {
+      logger = opts.logger;
+    }
+
+    // default format
+    format = opts.format || &#x22;:remote-address :incoming :method :url HTTP/:http-version :status-code :res-headers[content-length] :
+referer :user-agent[family] :user-agent[major].:user-agent[minor] :user-agent[os] :response-time ms&#x22;;
+    delete opts.format; // don&#x27;t pass it to bunyan
+    (typeof format != &#x27;function&#x27;) &#x26;&#x26; (format = compile(format));
+
+    opts.hasOwnProperty(&#x27;parseUA&#x27;) &#x26;&#x26; (parseUA = opts.parseUA, delete opts.parseUA);
+
+    if (opts.immediate) {
+        immediate = opts.immediate;
+        delete opts.immediate;
+    }
+
+    if (opts.levelFn) {
+        levelFn = opts.levelFn;
+        delete opts.levelFn;
+    }
+
+    if (opts.excludes) {
+        excludes = opts.excludes;
+        delete opts.excludes;
+    }
+
+    if (opts.obfuscate) {
+        obfuscate = opts.obfuscate;
+        obfuscatePlaceholder = opts.obfuscatePlaceholder || &#x27;[HIDDEN]&#x27;;
+        delete opts.obfuscate;
+        delete opts.obfuscatePlaceholder;
+    }
+
+    if (opts.includesFn) {
+        includesFn = opts.includesFn;
+        delete opts.includesFn;
+    }
+
+
+    if (opts.genReqId) {
+        genReqId = typeof genReqId == &#x27;function&#x27; ? opts.genReqId : defaultGenReqId;
+    }else if (opts.hasOwnProperty(&#x27;genReqId&#x27;)) {
+        genReqId = false;
+    }
+
+    return function (err, req, res, next) {
+        var startTime = process.hrtime();
+
+        var app = req.app || res.app;
+
+        if (!logger) {
+            opts.name = (opts.name || app.settings.shortname || app.settings.name || app.settings.title || &#x27;express&#x27;);
+            opts.serializers = opts.serializers || {};
+            opts.serializers.req = opts.serializers.req || bunyan.stdSerializers.req;
+            opts.serializers.res = opts.serializers.res || bunyan.stdSerializers.res;
+            err &#x26;&#x26; (opts.serializers.err = opts.serializers.err || bunyan.stdSerializers.err);
+            logger = bunyan.createLogger(opts);
+        }
+
+        var requestId;
+
+        if (genReqId)
+          requestId = genReqId(req);
+
+        var childLogger = requestId !== undefined ? logger.child({req_id: requestId}) : logger;
+        req.log = childLogger;
+
+        function logging(incoming) {
+            if (!incoming) {
+                res.removeListener(&#x27;finish&#x27;, logging);
+                res.removeListener(&#x27;close&#x27;, logging);
+            }
+
+            var status = res.statusCode,
+                method = req.method,
+                url = (req.baseUrl || &#x27;&#x27;) + (req.url || &#x27;-&#x27;),
+                referer = req.header(&#x27;referer&#x27;) || req.header(&#x27;referrer&#x27;) || &#x27;-&#x27;,
+                ua = parseUA ? useragent.parse(req.header(&#x27;user-agent&#x27;)) : req.header(&#x27;user-agent&#x27;),
+                httpVersion = req.httpVersionMajor + &#x27;.&#x27; + req.httpVersionMinor,
+                hrtime = process.hrtime(startTime),
+                responseTime = hrtime[0] * 1e3 + hrtime[1] / 1e6,
+                ip, logFn;
+
+            ip = ip || req.ip || req.connection.remoteAddress ||
+                (req.socket &#x26;&#x26; req.socket.remoteAddress) ||
+                (req.socket.socket &#x26;&#x26; req.socket.socket.remoteAddress) ||
+                &#x27;127.0.0.1&#x27;;
+
+            var meta = {
+                &#x27;remote-address&#x27;: ip,
+                &#x27;ip&#x27;: ip,
+                &#x27;method&#x27;: method,
+                &#x27;url&#x27;: url,
+                &#x27;referer&#x27;: referer,
+                &#x27;user-agent&#x27;: ua,
+                &#x27;body&#x27;: req.body,
+                &#x27;short-body&#x27;: undefined,
+                &#x27;http-version&#x27;: httpVersion,
+                &#x27;response-time&#x27;: responseTime,
+                &#x22;response-hrtime&#x22;: hrtime,
+                &#x22;status-code&#x22;: status,
+                &#x27;req-headers&#x27;: req.headers,
+                &#x27;res-headers&#x27;: res._headers,
+                &#x27;req&#x27;: req,
+                &#x27;res&#x27;: res,
+                &#x27;incoming&#x27;:incoming?&#x27;--&#x3e;&#x27;:&#x27;&#x3c;--&#x27;
+            }; ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+To use the logger:
+
+app.use(require(&#x27;express-bunyan-logger&#x27;)());
+
+To use the errorLogger:
+
+app.use(require(&#x27;express-bunyan-logger&#x27;).<span class="apidocCodeKeywordSpan">errorLogger</span>());
+
+And you can also pass bunyan logger options to the logger middleware:
+
+app.use(require(&#x27;express-bunyan-logger&#x27;)({
+    name: &#x27;logger&#x27;,
+    streams: [{
+        level: &#x27;info&#x27;,
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
