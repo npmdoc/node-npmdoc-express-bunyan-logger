@@ -1,17 +1,40 @@
 {
-    "buildNpmdoc":"express-bunyan-logger",
+    "author": "kai zhu <kaizhu256@gmail.com>",
+    "buildNpmdoc": "express-bunyan-logger",
+    "description": "api documentation for [express-bunyan-logger (v1.3.1)](https://github.com/villadora/express-bunyan-logger#readme) [![npm package](https://img.shields.io/npm/v/npmdoc-express-bunyan-logger.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-express-bunyan-logger) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-express-bunyan-logger.svg)](https://travis-ci.org/npmdoc/node-npmdoc-express-bunyan-logger)",
     "devDependencies": {
-        "express-bunyan-logger": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
+        "express-bunyan-logger": "*",
         "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "name":"npmdoc-express-bunyan-logger",
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/npmdoc/node-npmdoc-express-bunyan-logger",
+    "keywords": [
+        "documentation",
+        "express-bunyan-logger"
+    ],
+    "license": "MIT",
+    "main": "lib.npmdoc_express_bunyan_logger.js",
+    "name": "npmdoc-express-bunyan-logger",
+    "nameAlias": "npmdoc_express_bunyan_logger",
+    "nameOriginal": "npmdoc-express-bunyan-logger",
+    "os": [
+        "darwin",
+        "linux"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/npmdoc/node-npmdoc-express-bunyan-logger"
     },
     "scripts": {
-        "build-ci": "utility2 shReadmeTest build_ci.sh"
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "(set -e; npm install \"kaizhu256/node-utility2#alpha\"; utility2 shDeployHeroku)",
+        "postinstall": "if [ -f npm_scripts.sh ]; then ./npm_scripts.sh postinstall; fi",
+        "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
+        "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
     "version": "0.0.1"
 }
