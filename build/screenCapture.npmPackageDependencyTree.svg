@@ -1,33 +1,36 @@
-<svg height="478" width="720" xmlns="http://www.w3.org/2000/svg">
-<rect height="478" fill="#555" width="720"></rect>
+<svg height="526" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="526" fill="#555" width="720"></rect>
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
-<tspan x="10" y="26">└─┬ express-bunyan-logger@1.3.1 </tspan>
-<tspan x="10" y="42">  ├─┬ bunyan@1.8.10 </tspan>
-<tspan x="10" y="58">  │ ├─┬ dtrace-provider@0.8.1 </tspan>
-<tspan x="10" y="74">  │ │ └── nan@2.6.1 </tspan>
-<tspan x="10" y="90">  │ ├── moment@2.18.1 </tspan>
-<tspan x="10" y="106">  │ ├─┬ mv@2.1.1 </tspan>
-<tspan x="10" y="122">  │ │ ├─┬ mkdirp@0.5.1 </tspan>
-<tspan x="10" y="138">  │ │ │ └── minimist@0.0.8 </tspan>
-<tspan x="10" y="154">  │ │ ├── ncp@2.0.0 </tspan>
-<tspan x="10" y="170">  │ │ └─┬ rimraf@2.4.5 </tspan>
-<tspan x="10" y="186">  │ │   └─┬ glob@6.0.4 </tspan>
-<tspan x="10" y="202">  │ │     ├─┬ inflight@1.0.6 </tspan>
-<tspan x="10" y="218">  │ │     │ └── wrappy@1.0.2 </tspan>
-<tspan x="10" y="234">  │ │     ├── inherits@2.0.3 </tspan>
-<tspan x="10" y="250">  │ │     ├─┬ minimatch@3.0.3 </tspan>
-<tspan x="10" y="266">  │ │     │ └─┬ brace-expansion@1.1.6 </tspan>
-<tspan x="10" y="282">  │ │     │   ├── balanced-match@0.4.2 </tspan>
-<tspan x="10" y="298">  │ │     │   └── concat-map@0.0.1 </tspan>
-<tspan x="10" y="314">  │ │     ├── once@1.4.0 </tspan>
-<tspan x="10" y="330">  │ │     └── path-is-absolute@1.0.1 </tspan>
-<tspan x="10" y="346">  │ └── safe-json-stringify@1.0.4 </tspan>
-<tspan x="10" y="362">  ├── lodash.has@4.5.2 </tspan>
-<tspan x="10" y="378">  ├── lodash.set@4.3.2 </tspan>
-<tspan x="10" y="394">  ├── node-uuid@1.4.8 </tspan>
-<tspan x="10" y="410">  └─┬ useragent@2.1.13 </tspan>
-<tspan x="10" y="426">    ├── lru-cache@2.2.4 </tspan>
-<tspan x="10" y="442">    └─┬ tmp@0.0.31 </tspan>
-<tspan x="10" y="458">      └── os-tmpdir@1.0.2</tspan>
+<tspan x="10" y="26">6 megabytes installed</tspan>
+<tspan x="10" y="42"></tspan>
+<tspan x="10" y="58">node_modules</tspan>
+<tspan x="10" y="74">└─┬ express-bunyan-logger@1.3.1 </tspan>
+<tspan x="10" y="90">  ├─┬ bunyan@1.8.10 </tspan>
+<tspan x="10" y="106">  │ ├─┬ dtrace-provider@0.8.1 </tspan>
+<tspan x="10" y="122">  │ │ └── nan@2.6.2 </tspan>
+<tspan x="10" y="138">  │ ├── moment@2.18.1 </tspan>
+<tspan x="10" y="154">  │ ├─┬ mv@2.1.1 </tspan>
+<tspan x="10" y="170">  │ │ ├─┬ mkdirp@0.5.1 </tspan>
+<tspan x="10" y="186">  │ │ │ └── minimist@0.0.8 </tspan>
+<tspan x="10" y="202">  │ │ ├── ncp@2.0.0 </tspan>
+<tspan x="10" y="218">  │ │ └─┬ rimraf@2.4.5 </tspan>
+<tspan x="10" y="234">  │ │   └─┬ glob@6.0.4 </tspan>
+<tspan x="10" y="250">  │ │     ├─┬ inflight@1.0.6 </tspan>
+<tspan x="10" y="266">  │ │     │ └── wrappy@1.0.2 </tspan>
+<tspan x="10" y="282">  │ │     ├── inherits@2.0.3 </tspan>
+<tspan x="10" y="298">  │ │     ├─┬ minimatch@3.0.3 </tspan>
+<tspan x="10" y="314">  │ │     │ └─┬ brace-expansion@1.1.7 </tspan>
+<tspan x="10" y="330">  │ │     │   ├── balanced-match@0.4.2 </tspan>
+<tspan x="10" y="346">  │ │     │   └── concat-map@0.0.1 </tspan>
+<tspan x="10" y="362">  │ │     ├── once@1.4.0 </tspan>
+<tspan x="10" y="378">  │ │     └── path-is-absolute@1.0.1 </tspan>
+<tspan x="10" y="394">  │ └── safe-json-stringify@1.0.4 </tspan>
+<tspan x="10" y="410">  ├── lodash.has@4.5.2 </tspan>
+<tspan x="10" y="426">  ├── lodash.set@4.3.2 </tspan>
+<tspan x="10" y="442">  ├── node-uuid@1.4.8 </tspan>
+<tspan x="10" y="458">  └─┬ useragent@2.1.13 </tspan>
+<tspan x="10" y="474">    ├── lru-cache@2.2.4 </tspan>
+<tspan x="10" y="490">    └─┬ tmp@0.0.31 </tspan>
+<tspan x="10" y="506">      └── os-tmpdir@1.0.2</tspan>
 </text>
 </svg>
